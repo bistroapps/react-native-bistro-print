@@ -1,4 +1,4 @@
-package com.rtnprintbistro;
+package com.printbistro;
 
 import androidx.annotation.Nullable;
 import com.facebook.react.bridge.NativeModule;

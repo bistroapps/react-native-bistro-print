@@ -1,4 +1,4 @@
-package com.rtnprintbistro;
+package com.printbistro;
 
 import androidx.annotation.NonNull;
 import com.facebook.react.bridge.NativeModule;
@@ -8,7 +8,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import java.util.Map;
 import java.util.HashMap;
-import com.rtnprintbistro.NativePrintBistroSpec;
+import com.printbistro.NativePrintBistroSpec;
 
 import android.content.Intent;
 import android.net.Uri;
