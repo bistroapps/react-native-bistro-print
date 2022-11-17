@@ -1,0 +1,43 @@
+{
+  "name": "rtn-printbistro",
+  "version": "0.0.1",
+  "description": "Add numbers with Turbo Native Modules",
+  "react-native": "js/index",
+  "source": "js/index",
+  "files": [
+    "js",
+    "android",
+    "ios",
+    "rtn-printbistro.podspec",
+    "!android/build",
+    "!ios/build",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "keywords": [
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "repository": "https://github.com/softwarebistro/PrintBistro",
+  "author": "Douglas Froes douglassantosfroes@gmail.com (https://github.com/douglasfroes)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/softwarebistro/PrintBistro/rtn-PrintBistro/issues"
+  },
+  "homepage": "https://github.com/softwarebistro/PrintBistro/rtn-PrintBistro#readme",
+  "devDependencies": {},
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "codegenConfig": {
+    "name": "RTNPrintBistroSpec",
+    "type": "modules",
+    "jsSrcsDir": "js",
+    "android": {
+      "javaPackageName": "com.rtnprintbistro"
+    }
+  }
+}
