@@ -37,4 +37,19 @@ public class PrintBistroModule extends NativePrintBistroSpec {
     public void isAppInstalled(Promise promise) {
         promise.resolve(true);   
     }
+
+    @Override
+    public void startAppByPackageName(String packageName, final Promise promise) {
+        promise.resolve(false);  
+    }
+
+    @Override
+    public void getPrinters(final Promise promise){
+        promise.resolve(this.NAME);  
+    }
+
+    @Override
+    public void print(String printerCode, String jsonInput, final Promise promise){
+        promise.resolve(jsonInput);  
+    }
 }
