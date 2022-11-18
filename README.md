@@ -1,35 +1,54 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://avatars.githubusercontent.com/u/66649275?s=400&u=13451b2fdf98f8283b669700e078f78ddf2c1812&v=4" width="200" alt="Nest Logo" />
-  </a>
+  <a href="http://nestjs.com/" target="blank"><img src="https://avatars.githubusercontent.com/u/66649275?s=400&u=13451b2fdf98f8283b669700e078f78ddf2c1812&v=4" width="200" alt="Nest Logo" /></a>
 </p>
 
+#Lib Service Printer
 
 ## Description
 
-[Kioskmode](https://github.com/softwarebistro/Kioskmode) framework React native starter repository.
+[Print-Bistro](https://github.com/bistroapps/print-bistro) framework React native starter repository...
 
 ## Installation
 
 ```bash
-yarn add https://github.com/softwarebistro/Kioskmode.git
+yarn add https://github.com/bistroapps/print-bistro.git
 ```
 
 ## Use the app
 
 
 
-  Import the `kioskmode` component from `rtn-kioskmode/js/NativeKioskmode` and use it like so:
+  Import the `printBistro` component from `print-bistro/js/NativePrintBistro` and use it like so:
 
   ```jsx
     import React, { useEffect } from 'react';
-    import kioskmode from 'rtn-kioskmode/js/NativeKioskmode'
+    import printBistro from 'print-bistro/js/NativePrintBistro'
 
     const App = () => {
-   
-        useEffect(()=>{
-            kioskmode.startKioskMode()
-        },[])
-   
+      
+     async function onPrint(){
+
+        const bodyPrint = JSON.stringify({
+              print: [
+                {
+                  type: 'text',
+                  text: 'Complemento',
+                  bold: false,
+                  align: 'Center',
+                  underscore: false,
+                  doubleWidth: false,
+                  doubleHeight: false,
+                  reverse: false,
+                },
+              ],
+            });
+
+        await printBistro.print(
+          'codePrint',
+           bodyPrint
+        )
+      }
+       
       ...
     }
   ```
@@ -37,13 +56,13 @@ yarn add https://github.com/softwarebistro/Kioskmode.git
 
   Methods:
   ```ts
-    kioskmode.checkPermissions() //
+    printBistro.isAppInstalled(packageName: string): Promise<boolean>
     
-    kioskmode.startKioskMode() // inita kiosk mode
+    printBistro.startAppByPackageName(packageName: string): Promise<boolean | boolean>;
     
-    kioskmode.stopKioskMode() // 
+    printBistro.getPrinters(): Promise<string>;
     
-    kioskmode.closeApp() //
+    printBistro.print(printerCode: string, jsonInput: string): Promise<string>;
   ```
 
 
@@ -52,6 +71,7 @@ yarn add https://github.com/softwarebistro/Kioskmode.git
 
 ## Stay in touch
 
+ - Author - [Francy Helder](https://github.com/HelderSi)
  - Author - [Douglas Froes](https://github.com/DouglasFroes)
 <!--
 - Website - [https://nestjs.com](https://nestjs.com/)

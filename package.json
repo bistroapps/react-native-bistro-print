@@ -1,7 +1,7 @@
 {
   "name": "print-bistro",
   "version": "0.0.1",
-  "description": "Add numbers with Turbo Native Modules",
+  "description": "Biblioteca para ajudar os desenvolvedores Android a imprimir em impressoras térmicas ESC/POS ( TCP, USB).",
   "react-native": "js/index",
   "source": "js/index",
   "files": [
@@ -20,13 +20,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/softwarebistro/PrintBistro",
-  "author": "Douglas Froes douglassantosfroes@gmail.com (https://github.com/douglasfroes)",
+  "repository": "https://github.com/bistroapps/print-bistro",
+  "author": "Francy Helder | Douglas Froes",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/softwarebistro/PrintBistro/rtn-PrintBistro/issues"
+    "url": "https://github.com/bistroapps/print-bistro/issues"
   },
-  "homepage": "https://github.com/softwarebistro/PrintBistro/rtn-PrintBistro#readme",
+  "homepage": "https://github.com/bistroapps/print-bistro/print-bistro#readme",
   "devDependencies": {},
   "peerDependencies": {
     "react": "*",
