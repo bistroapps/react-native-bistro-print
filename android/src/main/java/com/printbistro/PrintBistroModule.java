@@ -91,7 +91,7 @@ public class PrintBistroModule extends NativePrintBistroSpec {
             }
         }
 
-        promise.resolve(packList.toString());
+        promise.resolve(false);
     }
 
     @Override
