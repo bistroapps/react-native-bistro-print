@@ -87,7 +87,7 @@ export const createColumnsText = (
 
 type Align = 'Center' | 'Left' | 'Right';
 
-type PrintProps = {
+export type PrintProps = {
   header: string;
   qrcode?: { position: 'top' | 'bottom'; text: string; lines?: number };
   footer: { text: string; bold?: boolean; align?: Align };
@@ -99,7 +99,7 @@ type PrintProps = {
   date?: string;
 };
 
-type PrintConf = {
+export type PrintConf = {
   columns: number, id: string
 }
 
