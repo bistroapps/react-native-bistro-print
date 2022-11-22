@@ -91,12 +91,13 @@ export type PrintProps = {
   header: string;
   qrcode?: { position: 'top' | 'bottom'; text: string; lines?: number };
   footer: { text: string; bold?: boolean; align?: Align };
-  order: { text: string; bold?: boolean; align?: Align };
-  hideTitles?: boolean;
-  items?: { name: string; quantity: number; value: string }[];
-  lastItem?: string;
+  order?: { text: string; bold?: boolean; align?: Align };
+  lastOrder?: string;
   customer?: string;
   date?: string;
+  hideTitleOrder?: boolean;
+  orders?: { name: string; quantity: number; value: string }[];
+  items: { text: string; bold?: boolean; align?: Align; lineTop?: number, lineBottom?: number }[]
 };
 
 export type PrintConf = {
@@ -110,9 +111,10 @@ export async function onPrint(
     qrcode,
     footer,
     order,
-    hideTitles,
+    hideTitleOrder,
+    orders,
     items,
-    lastItem,
+    lastOrder,
     customer,
     date,
   }: PrintProps) {
@@ -136,17 +138,19 @@ export async function onPrint(
   print.push({ type: 'lines', lines: 2 });
 
   // order
-  print.push({
-    type: 'text',
-    text: order.text,
-    bold: order.bold || true,
-    align: order.align || 'Center',
-    underscore: false,
-    doubleWidth: false,
-    doubleHeight: false,
-    reverse: false,
-  });
-  print.push({ type: 'lines', lines: 1 });
+  if (order) {
+    print.push({
+      type: 'text',
+      text: order.text,
+      bold: order.bold || true,
+      align: order.align || 'Center',
+      underscore: false,
+      doubleWidth: false,
+      doubleHeight: false,
+      reverse: false,
+    });
+    print.push({ type: 'lines', lines: 1 });
+  }
 
   // qr code top
   if (qrcode?.position === 'top') {
@@ -159,30 +163,31 @@ export async function onPrint(
     print.push({ type: 'lines', lines: 1 });
   }
 
-  if (!hideTitles) {
-    const itemsTableHeadText = createColumnsText(
-      [
-        { align: 'left', flex: 0.5, text: 'Qtd' },
-        { align: 'left', flex: 2.5, text: 'Item' },
-        { align: 'center', flex: 1, text: 'Valor' },
-      ],
-      Number(columns),
-    );
+  // orders
+  if (orders) {
+    if (!hideTitleOrder) {
+      const itemsTableHeadText = createColumnsText(
+        [
+          { align: 'left', flex: 0.5, text: 'Qtd' },
+          { align: 'left', flex: 2.5, text: 'Item' },
+          { align: 'center', flex: 1, text: 'Valor' },
+        ],
+        Number(columns),
+      );
 
-    print.push({
-      type: 'text',
-      text: itemsTableHeadText,
-      bold: false,
-      align: 'Center',
-      underscore: true,
-      doubleWidth: false,
-      doubleHeight: false,
-      reverse: false,
-    });
-  }
+      print.push({
+        type: 'text',
+        text: itemsTableHeadText,
+        bold: false,
+        align: 'Center',
+        underscore: true,
+        doubleWidth: false,
+        doubleHeight: false,
+        reverse: false,
+      });
+    }
 
-  if (items) {
-    items.forEach(item => {
+    orders.forEach(item => {
       const itemTableRowText = createColumnsText(
         [
           { align: 'left', flex: 0.5, text: `${item.quantity}` },
@@ -203,38 +208,47 @@ export async function onPrint(
         reverse: false,
       });
     });
+
+    // last order
+    if (lastOrder) {
+      print.push({
+        type: 'text',
+        text: lastOrder,
+        bold: true,
+        align: 'Right',
+        underscore: false,
+        doubleWidth: false,
+        doubleHeight: false,
+        reverse: false,
+      });
+    }
   }
 
-  if (lastItem) {
-    print.push({
-      type: 'text',
-      text: lastItem,
-      bold: true,
-      align: 'Right',
-      underscore: false,
-      doubleWidth: false,
-      doubleHeight: false,
-      reverse: false,
+  // items
+  if (items) {
+    items.forEach(({ text, align, bold, lineBottom, lineTop }) => {
+      if (lineTop) print.push({ type: 'lines', lines: lineTop });
+      print.push({
+        type: 'text',
+        text,
+        bold: bold || false,
+        align: align || 'Left',
+        underscore: false,
+        doubleWidth: false,
+        doubleHeight: false,
+        reverse: false,
+      });
+      if (lineBottom) print.push({ type: 'lines', lines: lineBottom });
     });
+
+
   }
 
+  // customer
   if (customer) {
     print.push({
       type: 'text',
       text: customer,
-      bold: false,
-      align: 'Center',
-      underscore: false,
-      doubleWidth: false,
-      doubleHeight: false,
-      reverse: false,
-    });
-  }
-
-  if (date) {
-    print.push({
-      type: 'text',
-      text: date,
       bold: false,
       align: 'Center',
       underscore: false,
@@ -255,8 +269,22 @@ export async function onPrint(
     });
   }
 
+  //date
+  if (date) {
+    print.push({
+      type: 'text',
+      text: date,
+      bold: false,
+      align: 'Center',
+      underscore: false,
+      doubleWidth: false,
+      doubleHeight: false,
+      reverse: false,
+    });
+  }
+
   // footer
-  print.push({ type: 'lines', lines: 2 });
+  print.push({ type: 'lines', lines: 1 });
   print.push({
     type: 'text',
     text: footer.text,
@@ -267,7 +295,7 @@ export async function onPrint(
     doubleHeight: false,
     reverse: false,
   });
-  print.push({ type: 'lines', lines: 2 });
+  print.push({ type: 'lines', lines: 1 });
   print.push({ type: 'cutter_part' });
   print.push({ type: 'beep' });
 
@@ -277,4 +305,3 @@ export async function onPrint(
 
   return result;
 }
-
