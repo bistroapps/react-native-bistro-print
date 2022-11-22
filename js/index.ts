@@ -97,7 +97,7 @@ export type PrintProps = {
   date?: string;
   hideTitleOrder?: boolean;
   orders?: { name: string; quantity: number; value: string }[];
-  items: { text: string; bold?: boolean; align?: Align; lineTop?: number, lineBottom?: number }[]
+  items?: { text: string; bold?: boolean; align?: Align; lineTop?: number, lineBottom?: number }[]
 };
 
 export type PrintConf = {
