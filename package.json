@@ -30,7 +30,7 @@
   "devDependencies": {},
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
     "lodash":"^4.17.21"
   },
   "codegenConfig": {
