@@ -23,11 +23,11 @@ type PrinterFromService = {
 };
 
 export async function getPrint() {
-  const isInstall = await printBistro.isAppInstalled(
-    'br.com.bistroapps.print_service_app',
-  );
+//   const isInstall = await printBistro.isAppInstalled(
+//     'br.com.bistroapps.print_service_app',
+//   );
 
-  if (!isInstall) throw 'app not installed';
+//   if (!isInstall) throw 'app not installed';
 
   const printers = await printBistro.getPrinters();
 
